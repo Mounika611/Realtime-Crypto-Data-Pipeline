@@ -15,7 +15,8 @@ limit = st.sidebar.slider("Sliding Window Depth (Ticks)", 10, 200, 30)
 
 st.title("⚡ Advanced Real-Time Market Data Pipeline")
 st.markdown(
-    "Multi-asset streaming pipeline featuring thread-safe queues, SQLite persistence, and Plotly analytics."
+    "Multi-asset streaming pipeline featuring thread-safe queues, SQLite"
+    " persistence, and Plotly analytics."
 )
 
 
@@ -33,6 +34,8 @@ def load_data(asset, limit):
     return pd.DataFrame(columns=["timestamp", "price", "volume", "asset"])
 
 
+# Use a fragment to auto-refresh only the dashboard section every 2 seconds safely
+@st.fragment(run_every=2)
 def render_dashboard():
   df = load_data(asset, limit)
 
@@ -74,6 +77,3 @@ def render_dashboard():
 
 
 render_dashboard()
-
-# Auto-refresh the dashboard every 2 seconds to fetch live updates
-st.rerun()
