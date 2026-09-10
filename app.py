@@ -30,7 +30,6 @@ def load_data(asset, limit):
     conn.close()
     return df
   except Exception:
-    # Returns an empty DataFrame if the database or table doesn't exist yet
     return pd.DataFrame(columns=["timestamp", "price", "volume", "asset"])
 
 
@@ -48,7 +47,6 @@ def render_dashboard():
   df = df.sort_values("timestamp")
 
   # Metrics Row
-  latest_price = df["iloc"][-1] if not df.empty else 0
   col1, col2, col3 = st.columns(3)
 
   with col1:
